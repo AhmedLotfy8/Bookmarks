@@ -3,7 +3,7 @@ var siteNameInput = document.querySelectorAll('.val')[0]
 var siteURLInput = document.querySelectorAll('.val')[1]
 var subBtn = document.querySelector('.submitBtn');
 var conTable = document.querySelector('.tableContent');
-var delBtn = document.querySelector('deleteBtn');
+
 
 // old user
 if (localStorage.getItem('Sites') !== null) {
@@ -15,6 +15,22 @@ else {
     siteList = [];
 }
 
+// siteNameInput
+function test() {
+
+    regex = (/^[A-Z][a-z]{3,15}$/)
+
+    if (regex.test(siteNameInput.value)) {
+        console.log('hi')
+    }
+
+    else {
+        console.log('no');
+    }
+
+}
+
+test();
 
 // <button class="submitBtn btn px-5 text-white">Submit</button>
 subBtn.addEventListener('click', function (info) {
@@ -33,7 +49,6 @@ function addSite() {
     localStorage.setItem('Sites', JSON.stringify(siteList))
     displayList();
 }
-
 
 function formatURL(url) {
 
@@ -57,20 +72,26 @@ function displayList() {
                                         class="fa fa-eye"></i></span>
                                 Visit</button> </a> </td>
 
-                        <td><button class="btn bg-danger text-white"><span><i class="fa fa-trash-can"></i></span>
+                        <td><button onclick="deleteSite(${i})" class="btn bg-danger text-white"><span><i class="fa fa-trash-can"></i></span>
                                 Delete</button></td>
                     </tr>`
     }
 
 
     conTable.innerHTML = htmlCode
+    clearInputs()
 }
 
-delBtn.addEventListener('click', deleteSite);
+function clearInputs() {
+    siteNameInput.value = ''
+    siteURLInput.value = ''
+}
 
 // <button class="btn bg-danger text-white"><span><i class="fa fa-trash-can"></i></span> Delete</button>
-function deleteSite() {
-    alert('hi');
+function deleteSite(index) {
+    siteList.splice(index, 1)
+    displayList()
+    localStorage.setItem('Sites', JSON.stringify(siteList))
 }
 
 
