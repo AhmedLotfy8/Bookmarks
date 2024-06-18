@@ -3,6 +3,9 @@ var siteNameInput = document.querySelectorAll('.val')[0]
 var siteURLInput = document.querySelectorAll('.val')[1]
 var subBtn = document.querySelector('.submitBtn');
 var conTable = document.querySelector('.tableContent');
+var alrDiv = document.querySelector('.alertDiv');
+var alrDivlyr = document.querySelector('.alertDivLayer');
+var alrDivBtn = document.querySelector('.alertDivBtn');
 
 
 // old user
@@ -15,39 +18,84 @@ else {
     siteList = [];
 }
 
-// siteNameInput
-function test() {
+function validateName() {
 
-    regex = (/^[A-Z][a-z]{3,15}$/)
+    regex = (/^[a-z]{3,15}$/)
+
+    siteNameInput.classList.remove('is-valid', 'is-invalid')
+    var flag
 
     if (regex.test(siteNameInput.value)) {
-        console.log('hi')
+        siteNameInput.classList.add('is-valid')
+        flag = true
     }
 
     else {
-        console.log('no');
+        siteNameInput.classList.add('is-invalid')
+        flag = false
     }
+
+    return flag;
 
 }
 
-test();
+function validateURL() {
+
+    regex = (/^w{3}\.\w+\.\w+$/)
+
+    siteURLInput.classList.remove('is-valid', 'is-invalid')
+    var flag
+
+    if (regex.test(siteURLInput.value)) {
+        flag = true
+        siteURLInput.classList.add('is-valid')
+    }
+
+    else {
+        flag = false
+        siteURLInput.classList.add('is-invalid')
+    }
+
+    return flag;
+}
 
 // <button class="submitBtn btn px-5 text-white">Submit</button>
 subBtn.addEventListener('click', function (info) {
     info.preventDefault();
     addSite();
+    siteNameInput.classList.remove('is-valid', 'is-invalid')
+    siteURLInput.classList.remove('is-valid', 'is-invalid')
+
+})
+
+// <button class="alertDivBtn border-0 bg-white position-absolute end-0"> <span class="fa fa-x"></span> </button>
+alrDivBtn.addEventListener('click', function(){
+    alrDiv.classList.add('d-none')
+    alrDivlyr.classList.add('d-none')
 })
 
 function addSite() {
 
-    var site = {
-        name: siteNameInput.value,
-        URL: formatURL(siteURLInput.value)
+    console.log(validateName() + "   " + validateURL());
+
+    // valid inputs
+    if (validateName() && validateURL()) {
+        var site = {
+            name: siteNameInput.value,
+            URL: formatURL(siteURLInput.value)
+        }
+
+        siteList.push(site);
+        localStorage.setItem('Sites', JSON.stringify(siteList))
+        displayList();
     }
 
-    siteList.push(site);
-    localStorage.setItem('Sites', JSON.stringify(siteList))
-    displayList();
+    // wrong inputs
+    else {
+        alrDiv.classList.remove('d-none')
+        alrDivlyr.classList.remove('d-none')
+    }
+
 }
 
 function formatURL(url) {

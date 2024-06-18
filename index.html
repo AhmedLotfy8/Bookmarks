@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=PT+Sans+Caption:wght@400;700&family=Pacifico&family=Righteous&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=PT+Sans+Caption:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Pacifico&family=Righteous&display=swap"
         rel="stylesheet">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="./CSS/bootstrap.min.css">
@@ -24,74 +24,111 @@
 
 </head>
 
-<body class="bg-clr">
+<body>
 
-    <div class="container py-2">
+    <div class="container-fluid startPage min-vh-100 bg-clr p-3">
 
-        <header class="d-flex justify-content-center">
-            <h1 class="H1 py-5 title display-5 gwendolyn-regular">Bookmarker</h1>
-        </header>
+        <div class="row d-flex justify-content-center align-items-center">
 
-        <div class="inputs py-4 w-100">
+            <div class="col-md-10">
 
-            <h2 class="H2 text-center fs-3"> <span><i class="fa fa-bookmark"></i></span>
-                Bookmark your favorite sites
-                <span><i class="fa fa-bookmark"></i></span>
-            </h2>
+                <header class="d-flex justify-content-center">
+                    <h1 class="H1 py-5 title display-5 gwendolyn-regular pacifico">Bookmarker</h1>
+                </header>
 
-            <form action="">
+                <div class="inputs py-4 w-100">
 
-                <div class="w-100">
+                    <h2 class="H2 text-center fs-3 righteous"> <span><i class="fa fa-bookmark"></i></span>
+                        Bookmark your favorite sites
+                        <span><i class="fa fa-bookmark"></i></span>
+                    </h2>
 
-                    <span class="me-2">
-                        <i class="fa fa-book-bookmark"></i>
-                    </span>
+                    <form action="">
 
-                    <label for="siteName" class="fw-bold">Site Name</label>
-                    <input oninput="test()" class="val form-control my-2" type="text" name="" placeholder="Bookmark Name" id="siteName">
+                        <div class="w-100">
+
+                            <span class="me-2">
+                                <i class="fa fa-book-bookmark"></i>
+                            </span>
+
+                            <label for="siteName" class="fw-bold">Site Name</label>
+                            <input oninput="validateName()" class="val form-control my-2" type="text" name=""
+                                placeholder="Bookmark Name" id="siteName">
+                        </div>
+
+                        <div class="w-100 py-3">
+
+                            <span class="me-2">
+                                <i class="fa fa-link"></i>
+                            </span>
+
+                            <label for="siteURL" class="fw-bold">Site URL</label>
+                            <input oninput="validateURL()" class="val form-control my-2" type="text" name=""
+                                placeholder="Website URL" id="siteURL">
+                        </div>
+
+                        <div class="d-flex justify-content-center">
+                            <button class="submitBtn btn px-5 text-white">Submit</button>
+                        </div>
+
+                    </form>
+
                 </div>
 
-                <div class="w-100 py-3">
+                <div>
 
-                    <span class="me-2">
-                        <i class="fa fa-link"></i>
-                    </span>
+                    <table class="table mt-4 text-center bg-white pt-sans">
 
-                    <label for="siteURL" class="fw-bold">Site URL</label>
-                    <input oninput="test()" class="val form-control my-2" type="text" name="" placeholder="Website URL" id="siteURL">
+                        <thead>
+                            <tr>
+                                <th>Index</th>
+                                <th>Website Name</th>
+                                <th>Visit</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+
+                        
+                        <tbody class="tableContent">
+
+                        </tbody>
+
+                    </table>
+
                 </div>
 
-                <div class="d-flex justify-content-center">
-                    <button class="submitBtn btn px-5 text-white">Submit</button>
-                </div>
-
-            </form>
-
-        </div>
-
-        <div>
-
-            <table class="table mt-4 text-center bg-white pt-sans">
-
-                <thead>
-                    <tr>
-                        <th>Index</th>
-                        <th>Website Name</th>
-                        <th>Visit</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-
-                <!-- FIXME: -->
-                <tbody class="tableContent">
-
-                </tbody>
-
-            </table>
+            </div>
 
         </div>
 
     </div>
+
+    <div class="overlay alertDivLayer d-none"></div>
+    <div class="alertDiv position-absolute p-4 top-50 start-50 bg-white rounded w-35 d-none">
+
+        <div class="position-relative mb-3">
+            <span class="fa fa-circle text-danger"></span>
+            <span class="fa fa-circle text-warning"></span>
+            <span class="fa fa-circle text-success"></span>
+
+            <button class="alertDivBtn border-0 bg-white position-absolute end-0"> <span class="fa fa-x"></span> </button>
+        </div>
+
+        <h4 class="fs-5 bree-serif-regular mb-3"> Site Name or Url is not valid, Please follow the rules below : </h4>
+
+        <ul class="list-unstyled">
+
+            <li class="pt-sans-caption-regular fs-5 mb-2"><span class="fa-regular text-danger fa-arrow-alt-circle-right"></span> Site name
+                must contain at least 3
+                characters </li>
+            <li class="pt-sans-caption-regular mb-2 fs-5"><span class="fa-regular text-danger fa-arrow-alt-circle-right"></span> Site URL
+                must be a valid one <br> <span class="ms-4"> ex: www.facebook.com </span>
+            </li>
+
+        </ul>
+
+    </div>
+
 
 
     <script src="./JS/script.js"></script>
