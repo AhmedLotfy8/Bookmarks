@@ -76,8 +76,6 @@ alrDivBtn.addEventListener('click', function(){
 
 function addSite() {
 
-    console.log(validateName() + "   " + validateURL());
-
     // valid inputs
     if (validateName() && validateURL()) {
         var site = {
